@@ -14,6 +14,21 @@ function App() {
       return item;
     }));
 
+    console.log(lists)
+
+  const onAddList = (obj) => {
+    const newLists = [...lists, obj];
+    setLists(newLists);
+  }
+
+  const onRemove = (obj) => {
+
+    if(!window.confirm("Do you really want to delete this item?")) return;
+
+    const newLists = lists.filter((item) => (item != obj));
+    setLists(newLists);
+  }
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
@@ -26,8 +41,8 @@ function App() {
             active: true
           }
         ]} />
-        <List items={lists} isRemovable />
-        <AddList colors={DB.colors} />
+        <List items={lists} onRemove={onRemove} isRemovable />
+        <AddList onAdd={onAddList} colors={DB.colors} />
       </div>
       <div className="todo__tasks">
 
